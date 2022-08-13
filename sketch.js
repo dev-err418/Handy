@@ -10,19 +10,20 @@ function setup() {
     video.size(width * coef, height * coef);
 
     handpose = ml5.handpose(video, modelReady);
-
     handpose.on("predict", results => {
         predictions = results;
-    });    
+    });
+    
     video.hide();
 }
 
 function modelReady() {
-    console.log("Model ready!");
+    const loading = document.getElementById("loading")
+    loading.classList.add("hide")    
 }
 
 function draw() {
-    image(video, 0, 0, width, height);    
+    image(video, 0, 0, width, height);
     drawKeypoints();
 }
 
@@ -33,6 +34,7 @@ const ori = [13, 14, 15]
 const anu = [17, 18, 19]
 
 const fingers = pouce.concat(index).concat(majeur).concat(ori).concat(anu)
+
 const hand = [0, 1, 2, 5, 9, 13, 17, 0]
 
 function drawKeypoints() {    
@@ -48,9 +50,10 @@ function drawKeypoints() {
             } 
             
             if (hand.includes(j)) {
-                fill(0, 255, 0);
-                noStroke();
-                ellipse(keypoint[0] * coef, keypoint[1] * coef, 10, 10);
+                const keypoint2 = prediction.landmarks[hand[hand.indexOf(j) + 1]]
+                stroke(0, 255, 0)
+                strokeWeight(6)
+                line(keypoint[0] * coef, keypoint[1] * coef, keypoint2[0] * coef, keypoint2[1] * coef)
             }
         }        
     }    
