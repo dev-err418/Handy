@@ -27,7 +27,7 @@ function draw() {
     drawKeypoints();
 }
 
-const pouce = [2, 3]
+const pouce = [2, 3, 4]
 const index = [5, 6, 7]
 const majeur = [9, 10, 11]
 const ori = [13, 14, 15]
